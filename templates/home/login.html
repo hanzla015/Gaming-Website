@@ -1,0 +1,229 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block head %}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2033048774373966"
+     crossorigin="anonymous"></script>
+{% endblock head %}
+{% block css %}
+<style>
+    .sidehero{
+        background-image: url({% static 'images/login1.png' %})
+    }
+    body{
+        background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+    }
+    .field{
+        background-color:rgb(209, 213, 219);
+        border-radius:10px;
+    }
+    .error{
+        font-weight: bold;
+        color: red;
+    }
+    .form-check-input:checked{
+        background-color: blueviolet;
+        border-color: blueviolet;
+    }
+    .form-check-input:focus {
+        border-color: blueviolet;
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(137 43 226 / 50%);
+    }
+    .button {
+        border: none;
+        width: 100px;
+        height: 40px;
+        margin: auto;
+        margin-top: 29px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+        font-size: 13px;
+        color: #fff;
+        text-transform: uppercase;
+        font-family: "Muli-SemiBold";
+        border-radius: 20px;
+        overflow: hidden;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        position: relative;
+        -webkit-transition-property: color;
+        transition-property: color;
+        -webkit-transition-duration: 0.5s;
+        transition-duration: 0.5s; }
+    .button:before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(270deg,#f114ff -40%,#450fc7 127.05%),#ffffff;
+          -webkit-transform: scaleX(0);
+          transform: scaleX(0);
+          -webkit-transform-origin: 0 50%;
+          transform-origin: 0 50%;
+          -webkit-transition-property: transform;
+          transition-property: transform;
+          -webkit-transition-duration: 0.5s;
+          transition-duration: 0.5s;
+          -webkit-transition-timing-function: ease-out;
+          transition-timing-function: ease-out; }
+    .button:hover:before {
+          -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+          -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+          transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66); }
+</style>
+{% endblock css %}
+{% block title %}Login{% endblock title %}
+{% block body %}
+<div class="container bg-dark mt-3 mb-3">
+    <div class="row">
+        <div class="col-md-6 p-4 d-none d-md-block sidehero"></div>
+        <div class="col-12 col-md-6 p-4" id="form_side">
+            {% if otp %}
+            <script>
+                document.getElementById('form_side').innerHTML = `<h2 class="text-white text-center">Verify account on</h2>
+                <h2 class="text-center" style="color: blueviolet;>DR HANZLA FF</h2>
+                <div class="text-center">
+                    <img src="{% static 'images/logo.png' %}" alt="Image" style="height: 150px;width: 150px;border-radius: 120px;">
+                </div>
+                <form action="/account-activation" method="post" name="otpForm" onsubmit="return validateotp()">{% csrf_token %}
+                    <div class="mb-4 mt-2 me-4" id="otp">
+                        <label for="exampleFormControlInput1" class="form-label text-uppercase fw-bold fs-6" style="color: blueviolet;">OTP</label>
+                        <input type="number" class="form-control field" id="otp_typed" id="otp" name="otp">
+                        <div class="error" style="color: red; font-weight: bold;"></div>
+                        <input type="hidden" name="user" value="{{user}}">
+                    </div>
+                    <small><a class="resend-otp" style="text-decoration: none; color:white;" href="#" onclick="ReSendOTP('{{user.username}}', 'resendOTPmess')" ><i id="resendOTPmess">Resend</i><i> OTP?</i></a></small>
+                    <br><small class="text-white">Note: If you don't recieve any email in inbox try checking your spam tab.</small>
+                    <button class="button btn text-uppercase" type="submit">Verify OTP</button>
+                </form>`
+            </script>
+            {% else %}
+            <h2 class="text-white text-center">Sign In to</h2>
+            <h2 class="text-center" style="color: blueviolet;">DR HANZLA FF</h2>
+            <div class="col-12">
+                <img class="mx-auto d-block" src="{% static 'images/logo.png' %}" alt="Image" style="height: 150px;width: 150px;border-radius: 120px;">
+            </div>
+            <form action="/login" method="post" name="loginForm" onsubmit="return validateForm()">{% csrf_token %}
+                <div class="col-12 mb-4 mt-2 me-4" id="uname">
+                    <label for="exampleFormControlInput1" class="form-label text-uppercase fw-bold fs-6" style="color: blueviolet;">username or email</label>
+                    <input type="text" class="form-control field" id="login" id="loginUsername" name="loginUsername" required>
+                    <div class="error" style="font-weight: bold; color: red;"></div>
+                </div>
+                <div class="col-12 mb-4 me-4" id="pwd">
+                    <label for="exampleFormControlInput1" class="form-label text-uppercase fw-bold fs-6" style="color: blueviolet;">password</label>
+                    <input type="password" autocomplete='current-password' class="form-control field" id="password" id="loginPassword" name="login-Password" required>
+                    <div class="error" style="font-weight: bold; color: red;"></div>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" onclick="showPass();" class="form-check-input field" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1" style="color: white;">Show Password</label>
+                </div>
+                <small class="text-white">Not a member yet? <a style="text-decoration: none; color:white;" class="small" href="/signup">Sign Up</a> </small><br>
+                {% comment %} <small><a class="small" style="text-decoration: none; color:white;" href="/password-reset">Forgot Password?</a></small> {% endcomment %}
+                <button class="button btn text-uppercase" type="submit">Sign In</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="container">
+   {% comment %} Ads Start here {% endcomment %}
+</div>
+{% endblock body %}
+{% block js %}
+<script src="{% static 'js/typed/logintyped.js' %}"></script>
+<script src="{% static 'js/typed/password.js' %}"></script>
+<script src="{% static 'js/typed/otp.js' %}"></script>
+<script>
+    function clearErrors(){
+
+        errors = document.getElementsByClassName("error");
+        for(let item of errors)
+        {
+            item.innerHTML = "";
+        } 
+    }
+    
+    // set errors inside tags of id
+    
+    function setError(div_id, error){
+        // id = div id
+        element = document.getElementById(div_id)
+        element.getElementsByClassName("error")[0].innerHTML = error;
+    }
+    
+    function validateForm(){
+        var returnVal = true;
+        clearErrors();
+    
+        // Username Validation
+        var Uname = document.forms['loginForm']['loginUsername'].value;
+        if (Uname.length<6){
+            setError("uname", "*Username cannot be less than 6 chracters!");
+            returnVal = false;
+        }
+        if (Uname.length>30){
+            setError("uname", "*Username cannot be greater than 30 chracters!");
+            returnVal = false;
+        }
+    
+        // matching password and confirm password
+        var password1 = document.forms['loginForm']["login-Password"].value;
+        if (password1.length<8){
+            setError("pwd", "*Password can not be less than 8 digits!");
+            returnVal = false;
+        }
+        return returnVal;
+    }
+    
+    function validateotp(){
+        var returnVal = true;
+        clearErrors();
+        // Validating Otp 
+        var otp = document.forms['otpForm']["otp"].value;
+        if (otp.length<6){
+            setError("otp", "OTP cannot be less than 6 digits!");
+            returnVal = false;
+        }
+        if (otp.length>6){
+            setError("otp", "OTP cannot be greater than 6 digits!");
+            returnVal = false;
+        }
+    
+        return returnVal;
+    }
+    
+    function showPass(){
+        var x = document.getElementById('password');
+
+        if(x.type === 'password'){
+            x.type = "text";
+        }
+        else{
+            x.type = "password";
+        }
+    }
+    function ReSendOTP(username, mess_id) {
+
+        mess = document.getElementById(mess_id);
+        mess.innerText = "Sending...";
+        $.ajax({
+          type: 'GET',
+          url: '/resend_otp',
+          data: { user: username },
+          success: function (data) {
+            mess.innerText = "Resend";
+          }
+        })
+      };
+</script>
+{% endblock js %}

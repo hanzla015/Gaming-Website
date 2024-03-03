@@ -1,0 +1,100 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block head %}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2033048774373966"
+     crossorigin="anonymous"></script>
+<meta name="description" content="See DR HANZLA FF Playlist to get the content you are searching for i am sure you will get what you are searching for.">
+{% endblock head %}
+{% block title %}Playlists{% endblock title %}
+{% block playlistactive %}active1{% endblock playlistactive %}
+{% block css %}
+<style>
+    .btn-go{
+        color: blueviolet;
+        border-color: blueviolet;
+    }
+    .btn-go:hover{
+        background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+        color: white;
+        border: none;
+    }
+    body{
+        background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+    }
+    .button {
+        border: none;
+        width: 100%;
+        height: 40px;
+        margin: auto;
+        margin-top: 29px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+        font-size: 13px;
+        color: #fff;
+        text-transform: uppercase;
+        font-family: "Muli-SemiBold";
+        border-radius: 20px;
+        overflow: hidden;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        position: relative;
+        -webkit-transition-property: color;
+        transition-property: color;
+        -webkit-transition-duration: 0.5s;
+        transition-duration: 0.5s; }
+    .button:before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(270deg,#f114ff -40%,#450fc7 127.05%),#ffffff;
+          -webkit-transform: scaleX(0);
+          transform: scaleX(0);
+          -webkit-transform-origin: 0 50%;
+          transform-origin: 0 50%;
+          -webkit-transition-property: transform;
+          transition-property: transform;
+          -webkit-transition-duration: 0.5s;
+          transition-duration: 0.5s;
+          -webkit-transition-timing-function: ease-out;
+          transition-timing-function: ease-out; }
+    .button:hover:before {
+          -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+          -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+          transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66); 
+        }
+</style>
+{% endblock css %}
+{% block body %}
+<div class="container mt-4">
+    {% comment %} <h3>DR HANZLA FF PLAYLISTS</h3> {% endcomment %}
+    <div class="row mt-2">
+        {% for i in all_vid %}
+        <div class="col col-sm-6 col-md-6 col-lg-4 mx-auto">
+            <div class="card-group">
+                <div class="m-4 bg-light card p-0 mx-auto" style="border-radius: 13px; border: none;">
+                    <img src="{{i.thumbnail_link}}" class="img-responsive" style="height:200px; border-top-left-radius: 13px; border-top-right-radius: 13px;" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: blueviolet;">{{i.name}}</h5>
+                        <p class="card-text" style="color: blueviolet;">{{i.description|truncatewords:15}}</p>
+                        <div class="col">
+                            <a href="/playlist/{{i.slug}}/video" class="btn btn-lg button" style="padding-right: 60px; padding-left: 59px;">Start Watching &raquo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock body %}

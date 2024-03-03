@@ -1,0 +1,216 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% load humanize %}
+{% load extras %}
+{% block head %}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2033048774373966"
+     crossorigin="anonymous"></script>
+<meta name="description" content="<p class='preview'>{{post.content|truncatewords:30}}</p>">
+<meta name="keywords" content="{% for i in tags %}{{i.tag}},{% endfor %}">
+<meta property="og:title" content="{{post.title}}" />
+<meta property="og:image" content="{{post.thumbnail_link}}"/>
+{% endblock head %}
+{% block blogactive %}active{% endblock blogactive %}
+{% block title %}{{post.title}}{% endblock title %}
+{% block css %}
+{% endblock css %}
+{% block incss %}
+    .card-latest:hover{
+        transform: scale(1.03);
+    }
+    body{
+        background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+    }
+    .button {
+        border: none;
+        width: 100px;
+        height: 40px;
+        margin: auto;
+        margin-top: 29px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+        font-size: 13px;
+        color: #fff;
+        text-transform: uppercase;
+        font-family: "Muli-SemiBold";
+        border-radius: 20px;
+        overflow: hidden;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        position: relative;
+        -webkit-transition-property: color;
+        transition-property: color;
+        -webkit-transition-duration: 0.5s;
+        transition-duration: 0.5s; }
+    .button:before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(270deg,#f114ff -40%,#450fc7 127.05%),#ffffff;
+          -webkit-transform: scaleX(0);
+          transform: scaleX(0);
+          -webkit-transform-origin: 0 50%;
+          transform-origin: 0 50%;
+          -webkit-transition-property: transform;
+          transition-property: transform;
+          -webkit-transition-duration: 0.5s;
+          transition-duration: 0.5s;
+          -webkit-transition-timing-function: ease-out;
+          transition-timing-function: ease-out; }
+    .button:hover:before {
+          -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+          -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+          transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66); }
+{% endblock incss %}
+{% block body %}
+<div class="container mt-4">
+    <div class="row row-col-sm-1">
+        <div class="col-12 bg-white col-md-8" style="border-radius: 10px; ">
+            <h3 class="mt-3">{{post.title}}</h3>
+            <div class="fb-share-button" data-href="https://drhanzlaff.herokuapp.com/blog/{{post.slug}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdrhanzlaff.herokuapp.com%2Fblog%2F%257B%257Bpost.slug%257D%257D&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+            <div><span class="text-muted" style="font-weight: bold;">{{post.author}} | </span><span class="ms-3 text-muted" style="font-weight: bold;"> {{post.time_stamp|naturaltime}}</span></div>
+            <img src="{{post.thumbnail_link}}" alt="" style="width: 615px; height: 400px;">
+            <p class="preview mt-4 px-4">{{post.content}}</p>
+        </div>
+        {% comment %} Comments are below {% endcomment %}
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-8 comment-section bg-white mt-2" id="comments" style="border-radius: 10px; ">
+                    <h5 class="mt-2">Comments<span>({{comments.count}})</span></h5>
+                    {% if not user.is_authenticated %}
+                    <div class="row g-0 ms-4 border">
+                       <p class="ms-4 mt-3">Please <a href="/login" class="fw-bold" style="text-decoration: none;">Login</a> to post comments.</p>
+                    </div>
+                    {% endif %}
+                    {% if comments.count == 0 %}
+                        <div>
+                            <p class="text-dark ms-4 mt-1">Be the first to comment</p>
+                        </div>
+                    {% endif %}
+                    <div class="row g-0 row-cols-auto">
+                        <div class="col-md-2 col-sm-2"></div>
+                        <div class="col-12 col-md-8 mt-3">
+                            {% for c in comments %}
+                            <div class="row g-0 pe-3 border-3 mb-2 shadow-lg bg-dark bg-body-rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative" style="border-bottom: 1px solid #a93ca0; border-radius: .5rem; ">
+                                <div class="row g-0 row-cols-auto row-col-sm-2 border-bottom mt-1 ms-1">
+                                    <div class="col-sm-2 col-md-1">
+                                        <img style="width: 35px; border: 1px solid black; border-radius: 104px; height: 35px; margin-top: 5px; padding: 0px" src="{% static 'images/user1.jpg' %}" alt="">
+                                    </div>
+                                    <div class="col-8 ms-md-2 mt-2 text-wrap text-white">
+                                        <h5>{{c.user.first_name}} {{c.user.last_name}}<span class="text-muted"> says</span></h5>
+                                    </div>
+                                </div>
+                                <p style="padding: 0px; margin-top: 1.5rem; margin-left: 1.5rem; margin-bottom: .40rem; color: white;">{{c.comment}}</p>
+                                <div class="row row-cols-auto">
+                                    <div class="col-sm-6">
+                                        <small class="text-white fw-bold">{{c.time_stamp|naturaltime}}</small>
+                                    </div>
+                                    <div class="col-sm-6 text-white text-end mb-1">
+                                        <small class="text-white fw-bold"><a class="text-white" style="text-decoration: none; color: white;" data-bs-toggle="collapse" href="#replybox{{c.serial_no}}" role="button" aria-expanded="false" aria-controls="collapseExample">View Replies</a></small>
+                                    </div>
+                                </div>
+                                <div class="row g-0">
+                                    <div class="col-1"></div>
+                                    <div class="col-11">
+                                        <div class="collapse ms-1" id="replybox{{c.serial_no}}">
+                                            {% for i in replies|get_val:c.serial_no %}
+                                            <div class="row g-0 pe-3 border-3 mb-2 bg-white bg-body-rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative" style="border-bottom: 1px solid #a93ca0; border-radius: .5rem; ">
+                                                <div class="row border-bottom mt-1 ms-1">
+                                                    <div class="col-2 col-md-1">
+                                                        <img style="width: 35px; border: 1px solid black; border-radius: 104px; height: 35px; margin-top: 5px; padding: 0px" src="{% static 'images/user.jpg' %}" alt="">
+                                                    </div>
+                                                    <div class="col-10 col-md-10 ms-md-2 text-wrap mt-2 text-dark">
+                                                        <h5>{{i.user.first_name}} {{i.user.last_name}}<span class="text-muted"> replies</span></h5>
+                                                    </div>
+                                                </div>
+                                                <p class="text-dark fw-bold" style="padding: 0px; margin-top: 1rem; margin-left: 1.5rem; margin-bottom: .75rem; color: white;">{{i.comment}}</p>
+                                            </div>
+                                            {% endfor %}
+                                            <div style="border-bottom: 1px solid grey; margin-bottom: .25rem;"></div>
+                                            <form action="/blog/postcomment" method="post" class="replyForm">{% csrf_token %}
+                                                <div class="row g-0">
+                                                    <div class="col-sm-2"></div>
+                                                    <div class="col-12 col-sm-10 mt-3">
+                                                    <div class="input-box">
+                                                        <textarea type="text" name="comment" id="reply"
+                                                                style="width: 100%; border-radius: 10px; color:black; border: none; outline: none; background: white;"
+                                                                placeholder="Type Your Reply here." rows="5"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row g-0">
+            
+                                                    <div class="col-7 col-sm-7 col-lg-8 col-md-6"></div>
+                                                    <div class="col-4 col-sm-4 text-end col-lg-4 col-md-6 mb-1">
+                                                        <input type="hidden" name="postSno" value="{{post.serial_no}}">
+                                                        <input type="hidden" name="parent_Sno" value="{{c.serial_no}}">
+                                                        {% if user.is_authenticated %}
+                                                        <button class="btn button" style="margin-left: 15px; margin-top: 0px;">Reply</button>
+                                                        {% else %}
+                                                        <a href="/login" class="btn button" style="margin-left: 15px; margin-top: 0px;">Reply</a>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <div class="row g-0">
+                                                    <div class="col-md-6"></div>
+                                                    <div class="col-md-6 text-white text-end mb-1">
+                                                        <small class="text-white fw-bold"><a class="text-white" style="text-decoration: none; color: white;" data-bs-toggle="collapse" href="#replybox{{c.serial_no}}" role="button" aria-expanded="false" aria-controls="collapseExample">Hide Replies</a></small>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
+                    <div class="row g-0">
+                        <div class="col-2"></div>
+                        <div class="col-10 col-md-9 mt-4" style="border-top: 2px solid grey;">
+                            {% comment %} comment form starts here {% endcomment %}
+                            <form class="mt-4" action="/blog/postcomment" method="post">{% csrf_token %}
+                                <div class="row g-0">
+                                    <div class="input-box">
+                                        <textarea type="text" name="comment" class="bg-dark" id="comment" style="width: 100%; color:rgb(255, 255, 255); border-radius: 10px; border: grey; outline: grey;" rows="5"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row g-0">
+                                    <div class="col-7 col-sm-8 col-md-9"></div>
+                                    <div class="col-4 col-sm-4 text-end col-md-3 mb-1">
+                                        <input type="hidden" name="postSno" value="{{post.serial_no}}">
+                                        <input type="hidden" name="parent_Sno" value="">
+                                        {% if user.is_authenticated %}
+                                        <button class="btn button fw-bold" style="margin-top: 0px;">Comment</button>
+                                        {% else %}
+                                        <a href="/login" class="fw-bold btn button" style="margin-top: 0px;">Comment</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
+{% block js %}
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v12.0&appId=976590069731068&autoLogAppEvents=1" nonce="zx7cTzyH"></script>
+<script src="{% static 'js/typed/comment.js' %}"></script>
+<script src="{% static 'js/typed/reply.js' %}"></script>
+{% endblock js %}

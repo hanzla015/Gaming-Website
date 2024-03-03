@@ -1,0 +1,389 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block head %}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2033048774373966"
+     crossorigin="anonymous"></script>
+<meta name="description" content="Signup to DR HANZLA FF To stay alert about any changing or update in game.">
+{% endblock head %}
+{% block title %}Signup{% endblock title %}
+{% block css %}
+<style>
+    .hero{
+        background-image: url({% static 'images/signup.png' %});
+    }
+    body{
+        background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+    }
+    
+    .signup{
+        color: rgb(255, 255, 255);
+    }
+    .field{
+        background-color:rgb(209, 213, 219);
+        border-radius:10px;
+    }
+    .error{
+        color: red;
+        font-weight: bold;
+    }
+    .form-check-input:checked{
+        background-color: blueviolet;
+        border-color: blueviolet;
+    }
+    .form-check-input:focus {
+        border-color: blueviolet;
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(137 43 226 / 50%);
+    }
+    .button {
+        border: none;
+        width: 100px;
+        height: 40px;
+        margin: auto;
+        margin-top: 29px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+        font-size: 13px;
+        color: #fff;
+        text-transform: uppercase;
+        font-family: "Muli-SemiBold";
+        border-radius: 20px;
+        overflow: hidden;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        position: relative;
+        -webkit-transition-property: color;
+        transition-property: color;
+        -webkit-transition-duration: 0.5s;
+        transition-duration: 0.5s; }
+    .button:before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(270deg,#f114ff -40%,#450fc7 127.05%),#ffffff;
+          -webkit-transform: scaleX(0);
+          transform: scaleX(0);
+          -webkit-transform-origin: 0 50%;
+          transform-origin: 0 50%;
+          -webkit-transition-property: transform;
+          transition-property: transform;
+          -webkit-transition-duration: 0.5s;
+          transition-duration: 0.5s;
+          -webkit-transition-timing-function: ease-out;
+          transition-timing-function: ease-out; }
+    .button:hover:before {
+          -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+          -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+          transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66); }
+</style>
+{% endblock css %}
+{% block body %}
+<div class="container mt-4 mb-4">
+    <div class="row">
+        <div class="col-md-6 d-none d-md-block bg-dark hero"></div>
+        <div class="col-12 col-md-6 bg-dark" id="form_side">
+        {% if not otp %}
+            <h2 class="text-center fw-bold mt-3 text-white">Signup to</h2>
+            <h2 class="text-center fw-bold" style="color: blueviolet;">DR HANZLA FF</h2>
+            <div class="text-center">
+                <img src="{% static 'images/logo.png' %}" alt="Image" style="height: 150px;width: 150px;border-radius: 120px;">
+            </div>
+            {% comment %} form start here {% endcomment %}
+            <form action="/signup" method="post" name="signupForm" onsubmit="return validateForm()">{% csrf_token %}
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="mb-4 me-2" id="fname">
+                            <label for="exampleFormControlInput1" class="form-label text-uppercase fw-bold fs-6" style="color: blueviolet;">first name</label>
+                            <input type="name" class="form-control field" id="firstname" id="firstName" name="firstName" required>
+                            <div class="error" style="color: red; font-weight: bold;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-4 me-2" id="lname">
+                            <label for="exampleFormControlInput1" class="form-label text-uppercase fw-bold fs-6" style="color: blueviolet;">last name</label>
+                            <input type="name" id="last_name" class="form-control field" id="lastName" name="lastName" required>
+                            <div class="error" style="color: red; font-weight: bold;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-4 me-2" id="uname">
+                    <label for="exampleFormControlInput1" class="form-label text-uppercase fw-bold fs-6" style="color: blueviolet;">username</label>
+                    <input type="username" class="form-control field" id="username" id="userName" name="userName" required>
+                    <div class="error" style="color: red; font-weight: bold;"></div>
+                </div>
+                <div class="mb-4 me-2" id="email">
+                    <label for="exampleFormControlInput1" class="form-label text-uppercase fw-bold fs-6" style="color: blueviolet;" required>Email</label>
+                    <input type="email" class="form-control field" id="emailtype" id="email" name="email">
+                    <div class="error" style="color: red; font-weight: bold;"></div>
+                </div>
+                <div class="mb-4 me-2" id="phone">
+                    <label for="exampleFormControlInput1" class="form-label text-uppercase fw-bold fs-6" style="color: blueviolet;" required>phone</label>
+                    <input type="number" class="form-control field" id="phone_type" id="phone" name="phone">
+                    <div class="error" style="color: red; font-weight: bold;"></div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <div class="mb-2 me-2" id="pwd">
+                            <label for="exampleFormControlInput1" class="form-label text-uppercase fw-bold fs-6" style="color: blueviolet;">password</label>
+                            <input type="password" onkeyup="strength();" id="password" class="form-control field" id="password1" name="password1" required>
+                            <div id="msg"></div>
+                            <div class="error" style="color: red; font-weight: bold;"></div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="mb-2 me-2" id="cpwd">
+                            <label for="exampleFormControlInput1" class="form-label text-uppercase fw-bold fs-6" style="color: blueviolet;" >confirm password</label>
+                            <input type="password" onkeyup="againStrength();" class="form-control field" id="again" id="password2" name="password2" required>
+                            <div class="error" style="color: red; font-weight: bold;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" onclick="showPass();" class="form-check-input field" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1" style="color: white;">Show Password</label>
+                </div>
+                <small class="text-white">Already a member? <a style="text-decoration:none; color:white;" href="/login">Sign In</a> </small>
+                <div class="text-center">
+                    <button type="submit" class="btn mb-3 text-uppercase button">Sign Up</button>
+                </div>
+              </form>
+              {% else %}
+              <script>
+                  document.getElementById('form_side').innerHTML = `<div class="ms-3"><h2 class="mt-4 text-white text-center">Verify account on</h2>
+                    <h2 class="text-center" style="color: blueviolet;>DR HANZLA FF</h2>
+                    <div class="text-center">
+                        <img src="{% static 'images/logo.png' %}" alt="Image" style="height: 150px;width: 150px;border-radius: 120px;">
+                    </div>
+                    <form action="/account-activation" name="signupForm" onsubmit="return validateotp()" method="post">{% csrf_token %}
+                        <div class="mb-4 mt-4 me-4" id="otp">
+                            <label for="exampleFormControlInput1" style="color: blueviolet;" class="form-label text-uppercase fw-bold fs-6">OTP</label>
+                            <input type="number" class="form-control field" id="otp_typed" id="otp" name="otp">
+                            <div class="error" style="color: red; font-weight: bold;"></div>
+                            <input type="hidden" name="user" value="{{user}}">
+                        </div>
+                        <small><a class="resend-otp" style="text-decoration:none; color:white;" href="#" onclick="ReSendOTP('{{user.username}}', 'resendOTPmess')" ><i id="resendOTPmess">Resend</i><i> OTP?</i></a></small>
+                        <br><small class="text-white"><small>Note: If you don't recieve any email in inbox try checking your spam tab.</small>
+                        <button class="button btn mb-3 text-uppercase fw-bold fs-6" type="submit">Verify OTP</button>
+                    </form></div>`
+            </script>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock body %}
+{% block js %}
+<script src="{% static 'js/typed/firstname.js' %}"></script>
+<script src="{% static 'js/typed/lastname.js' %}"></script>
+<script src="{% static 'js/typed/username.js' %}"></script>
+<script src="{% static 'js/typed/email.js' %}"></script>
+<script src="{% static 'js/typed/phone.js' %}"></script>
+<script src="{% static 'js/typed/password.js' %}"></script>
+<script src="{% static 'js/typed/otp.js' %}"></script>
+<script src="{% static 'js/typed/confirmpassword.js' %}"></script>
+<script>
+    // Clearing errrors
+    function clearErrors(){
+
+        errors = document.getElementsByClassName("error");
+        for(let item of errors)
+        {
+            item.innerHTML = "";
+        } 
+    }
+
+    // set errors inside tags of id
+
+    function setError(div_id, error){
+        // id = div id
+        element = document.getElementById(div_id)
+        element.getElementsByClassName("error")[0].innerHTML = error;
+    }
+
+
+    function validateForm(){
+        var returnVal = true;
+        clearErrors();
+
+        // Taking data from form and validating the data
+        // First Form then name set in input tag
+
+        // Managing First Name
+        var Fname = document.forms['signupForm']["firstName"].value;
+        if (Fname.length<3){
+            setError("fname", "*First name is too short");
+            returnVal = false;
+        }
+        if (Fname.length>10){
+            setError("fname", "*First name is too long");
+            returnVal = false;
+        }
+
+        // Last Name Validation
+        var Lname = document.forms['signupForm']["lastName"].value;
+        if (Lname.length<3){
+            setError("lname", "*Last name is too short");
+            returnVal = false;
+        }
+        if (Lname.length>10){
+            setError("lname", "*Last name is too long");
+            returnVal = false;
+        }
+
+        // Username Validation
+        var Uname = document.forms['signupForm']['userName'].value;
+        if (Uname.length<6){
+            setError("uname", "*Username cannot be less then 6 chracters!");
+            returnVal = false;
+        }
+        if (Uname.length>30){
+            setError("uname", "*Username cannot be greater then 30 chracters!");
+            returnVal = false;
+        }
+
+        // Email Validation
+        var email = document.forms['signupForm']["email"].value;
+        if (email.length>50){
+            setError("email", "*Enter a valid email address");
+            returnVal = false;
+        }
+
+        // phone number validation
+        var phone = document.forms['signupForm']["phone"].value;
+        if (phone.length<10){
+            setError("phone", "*Phone number must contains 11 digits.");
+            returnVal = false;
+        }
+        if(phone.length>11){
+            setError("phone", "*Phone number can not be greater than 11 digits.");
+            returnVal = false;
+        }
+
+        // matching password and confirm password
+        var password = document.forms['signupForm']["password1"].value;
+        var confirmPass = document.forms['signupForm']["password2"].value;
+        if (password!=confirmPass){
+            setError("pwd", "*Password does not match");
+            returnVal = false;
+        }
+        if (password.length<8){
+            setError("pwd", "*Password can not be less then 8!");
+            returnVal = false;
+        }
+        if (confirmPass.length<8){
+            setError("cpwd", "*Password can not be less then 8!");
+            returnVal = false;
+        }
+
+        
+        return returnVal;
+    }
+    
+    function validateotp(){
+        var returnVal = true;
+        clearErrors();
+        // Validating Otp 
+        var otp = document.forms['signupForm']["otp"].value;
+        if (otp.length<6){
+            setError("otp", "OTP cannot be less than 6 digits!");
+            returnVal = false;
+        }
+        if (otp.length>6){
+            setError("otp", "OTP cannot be greater than 6 digits!");
+            returnVal = false;
+        }
+    
+        return returnVal;
+    }
+    
+    function strength(){
+        var pwdInput = document.getElementById('password');
+        var password1 = document.forms['signupForm']['password1'].value;
+        
+        if (password1.length<6){
+            msg.innerHTML = "Weak"
+            msg.style.color = "red"
+            pwdInput.style.borderColor = "red"
+            pwdInput.style.borderWidth = "2px"
+        }
+        
+        if (password1.length>=6){
+            msg.innerHTML = "Average"
+            msg.style.color = "orange"
+            pwdInput.style.borderColor = "orange"
+            pwdInput.style.borderWidth = "2px"
+        }
+        
+        if (password1.length>=8){
+            msg.innerHTML = "Strong"
+            msg.style.color = "lightgreen"
+            pwdInput.style.borderColor = "lightgreen"
+            pwdInput.style.borderWidth = "2px"
+        }
+        
+        if (password1.length>=10){
+            msg.innerHTML = "Very Strong"
+            msg.style.color = "green"
+            pwdInput.style.borderColor = "green"
+            pwdInput.style.borderWidth = "2px"
+        }
+        
+    }
+    
+    function againStrength(){
+        var again = document.getElementById('again'); 
+        var password2 = document.forms['signupForm']['password2'].value;
+        var msg = document.getElementById('msg');
+        if (password2.length<6){
+            msg.innerHTML = "Weak"
+            msg.style.color = "red"
+            again.style.borderColor = "red"
+            again.style.borderWidth = "2px"
+        }
+        if (password2.length>=6){
+            msg.innerHTML = "Average"
+            msg.style.color = "orange"
+            again.style.borderColor = "orange"
+            again.style.borderWidth = "2px"
+        }
+        if (password2.length>=8){
+            msg.innerHTML = "Strong"
+            msg.style.color = "lightgreen"
+            again.style.borderColor = "lightgreen"
+            again.style.borderWidth = "2px"
+        }
+        if (password2.length>=10){
+            msg.innerHTML = "Very Strong"
+            msg.style.color = "green"
+            again.style.borderColor = "green"
+            again.style.borderWidth = "2px"
+        }
+
+    }
+    
+    function showPass(){
+        var password = document.getElementById('password');
+        var againPassword = document.getElementById('again');
+
+        if(password.type === 'password' || againPassword.type === 'password'){
+            password.type = "text";
+            againPassword.type = "text"
+        }
+        else
+        {
+            password.type = "password";
+            againPassword.type = "password"
+        }
+    }
+</script>
+{% endblock js %}

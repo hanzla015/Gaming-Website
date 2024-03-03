@@ -1,0 +1,217 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block head %}
+<meta name="description" content="Contact DR HANZLA FF for any specific information about freefire or share your personal experience.">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2033048774373966"
+     crossorigin="anonymous"></script>
+{% endblock head %}
+{% block contactactive %}active1{% endblock contactactive %}
+{% block title %}Contact{% endblock title %}
+{% block css %}
+<style>
+    @media only screen and (max-width: 350px) {
+    .g-recaptcha {
+    transform:scale(0.50);
+    transform-origin:0 0;
+    }
+    }
+    body{
+        background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+    }
+    .button {
+        border: none;
+        width: 100px;
+        height: 40px;
+        margin: auto;
+        margin-top: 29px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+        font-size: 13px;
+        color: #fff;
+        text-transform: uppercase;
+        font-family: "Muli-SemiBold";
+        border-radius: 20px;
+        overflow: hidden;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        position: relative;
+        -webkit-transition-property: color;
+        transition-property: color;
+        -webkit-transition-duration: 0.5s;
+        transition-duration: 0.5s; }
+    .button:before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(270deg,#f114ff -40%,#450fc7 127.05%),#ffffff;
+          -webkit-transform: scaleX(0);
+          transform: scaleX(0);
+          -webkit-transform-origin: 0 50%;
+          transform-origin: 0 50%;
+          -webkit-transition-property: transform;
+          transition-property: transform;
+          -webkit-transition-duration: 0.5s;
+          transition-duration: 0.5s;
+          -webkit-transition-timing-function: ease-out;
+          transition-timing-function: ease-out; }
+    .button:hover:before {
+          -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+          -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+          transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66); }
+    .field{
+        background-color:rgb(209, 213, 219);
+        border-radius:10px;
+        }
+    .typed-cursor{
+        opacity: 0;
+    }
+        </style>
+{% endblock css %}
+{% block body %}
+<div class="container p-3 mt-4" style="background-color: #F3F4F6;">
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <p class="fw-bold fs-4 text-center">Let's talk about everything!</p>
+            <div class="text-center">
+                <img src="{% static 'images/logo.png' %}" alt="Image" style="background: radial-gradient(black, transparent); backheight: 150px;width: 150px;border-radius: 120px;">
+                <p class="fw-bold fs-5 mt-1">
+                    Feel free to ask us anything!
+                </p>
+            </div>
+            <p class="mx-4 fs-5">Have doubt or suggestion to make? Feel free to ask anything. If you have any suggestions, please let me know. Your suggestions are highly appreciated. I appreciate your time and try hard to reply to every single message posted here! Keep dropping your priceless opinions.</p>
+        </div>
+        <div class="col-md-6">
+            {% comment %} form starts here {% endcomment %}
+            <form action="/contact/" method="post" name="contactForm" onsubmit="return validateForm()">{% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-4 me-4" id="fname">
+                            <label for="exampleFormControlInput1" class="form-label text-uppercase text-dark fw-bold fs-6">first name</label>
+                            <input type="text" class="form-control field" id="firstname" id="firstName" name="firstName" required>
+                            <div class="error" style="color: red; font-weight: bold;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-4 me-4" id="lname">
+                            <label for="exampleFormControlInput1" class="form-label text-uppercase text-dark fw-bold fs-6">last name</label>
+                            <input type="text" id="last_name" class="form-control field" id="lastName" name="lastName" required>
+                            <div class="error" style="color: red; font-weight: bold;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4 me-4" id="email">
+                    <label for="exampleFormControlInput1" class="form-label text-uppercase text-dark fw-bold fs-6">Email</label>
+                    <input type="email" class="form-control field" id="emailtype" name="email" id="email" required>
+                    <div class="error" style="color: red; font-weight: bold;"></div>
+                </div>
+                <div class="mb-4 me-4" id="phone">
+                    <label for="exampleFormControlInput1" class="form-label text-uppercase text-dark fw-bold fs-6">Phone</label>
+                    <input type="phone" class="form-control field" name="phone" id="phone_type" id="phone" required>
+                    <div class="error" style="color: red; font-weight: bold;"></div>
+                </div>
+                <div class="mb-4 me-4" id="mess">
+                    <label for="exampleFormControlTextarea1" class="form-label text-uppercase text-dark fw-bold fs-6">message</label>
+                    <textarea class="form-control field" id="description" name="desc" id="desc" rows="5" required></textarea>
+                    <div class="error" style="color: red; font-weight: bold;"></div>
+                </div>
+                <div class="mb-4">
+                    <div class="g-recaptcha" data-sitekey="6LcrviYeAAAAAC-0pxHqu9ZXZUQcw7Ud-pIW-qQQ"></div>
+                </div>
+                <button type="submit" class="button btn text-uppercase">Send message</button>
+              </form>
+        </div>
+    </div>
+</div>
+{% endblock body %}
+{% block js %}
+<script src="{% static 'js/typed/firstname.js' %}"></script>
+<script src="{% static 'js/typed/lastname.js' %}"></script>
+<script src="{% static 'js/typed/email.js' %}"></script>
+<script src="{% static 'js/typed/phone.js' %}"></script>
+<script src="{% static 'js/typed/mess.js' %}"></script>
+<script src="{% static 'js/contactValidate.js' %}"></script>
+<script>
+    // Clearing errrors
+function clearErrors(){
+
+errors = document.getElementsByClassName("error");
+for(let item of errors)
+{
+    item.innerHTML = "";
+} 
+}
+
+// set errors inside tags of id
+
+function setError(div_id, error){
+// id = div id
+element = document.getElementById(div_id)
+element.getElementsByClassName("error")[0].innerHTML = error;
+}
+
+
+function validateForm(){
+var returnVal = true;
+clearErrors();
+
+// Taking data from form and validating the data
+// First Form then name set in input tag
+
+// Managing First Name
+var Fname = document.forms['contactForm']["firstName"].value;
+if (Fname.length<3){
+    setError("fname", "*First name is too short");
+    returnVal = false;
+}
+if (Fname.length>10){
+    setError("fname", "*First name is too long");
+    returnVal = false;
+}
+
+// Last Name Validation
+var Lname = document.forms['contactForm']["lastName"].value;
+if (Lname.length<3){
+    setError("lname", "*Last name is too short");
+    returnVal = false;
+}
+if (Lname.length>10){
+    setError("lname", "*Last name is too long");
+    returnVal = false;
+}
+// Email Validation
+var email = document.forms['contactForm']["email"].value;
+if (email.length>50){
+    setError("email", "*Enter a valid email address");
+    returnVal = false;
+}
+
+// phone number validation
+var phone = document.forms['contactForm']["phone"].value;
+if (phone.length<10){
+    setError("phone", "*Phone number must contains 11 digits.");
+    returnVal = false;
+}
+if(phone.length>11){
+    setError("phone", "*Phone number can not be greater than 11 digits.");
+    returnVal = false;
+}
+
+var mess = document.forms['contactForm']['desc'].value;
+if (mess.length<30){
+    setError("mess", "*Message cannot be less than 30 chracters!");
+    returnVal = false;
+}
+return returnVal;
+}
+</script>
+{% endblock js %}

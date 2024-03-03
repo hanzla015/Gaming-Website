@@ -1,0 +1,45 @@
+{% extends 'basic.html' %}
+{% block head %}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2033048774373966"
+     crossorigin="anonymous"></script>
+{% endblock head %}
+{% block title %}Videos | {{playlist.slug}}{% endblock title %}
+{% load humanize %}
+{% block playlistactive %}active1{% endblock playlistactive %}
+{% block body %}
+{% block css %}
+<style>
+    .card-vid:hover{
+        transform: scale(1.05);
+    }
+    .card-title:hover{
+        color: blueviolet;
+    }
+    body{
+        background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+    }
+</style>
+{% endblock css %}
+<div class="container">
+    <div class="row mb-4 mt-2">
+        <div class="card-group row-cols">
+            {% for i in videos %}
+            <div class="col col-sm-6 col-md-4 mb-4">
+                <div class="card h-100 card-vid shadow-lg border-none me-md-2">
+                    <a href="/playlist/{{playlist.slug}}/?video={{i.serial_no}}">
+                        <img src="{{i.thumbnail_link}}" style="height:150px;" class="img-fluid card-img-top" alt="Image">
+                    </a>
+                    <div class="card-body">
+                        <a href="/playlist/{{playlist.slug}}/?video={{i.serial_no}}" style="color: black; text-decoration: none;"><h5 class="card-title">{{i.Title}}</h5></a>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock me-1" viewBox="0 0 16 16">
+                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+                          </svg><small>{{i.time_stamp|naturaltime}}</small>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+          </div>
+    </div>
+</div>
+{% endblock body %}

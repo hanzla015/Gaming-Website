@@ -1,0 +1,186 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block head %}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2033048774373966"
+     crossorigin="anonymous"></script>
+<meta name="description" content="Watch DR HANZLA FF playing freefire get his tips and tricks to improve your gaming experience your comments are always valuable to me.">
+<meta name="keywords" content="{% for i in video.tag_set.all %}{{i.tag}},{% endfor %}">
+<meta property="og:image" content="{{video.thumbnail_link}}">
+<meta property="og:title"         content="{{video.Title}}" />
+{% endblock head %}
+{% block title %}{{video.Title}}{% endblock title %}
+{% block playlistactive %}active{% endblock playlistactive %}
+{% block css %}
+<style>
+    body{
+        background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+    }
+    .button {
+        border: none;
+        width: 100px;
+        height: 40px;
+        margin: auto;
+        margin-top: 15px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+        font-size: 13px;
+        color: #fff;
+        text-transform: uppercase;
+        font-family: "Muli-SemiBold";
+        border-radius: 20px;
+        overflow: hidden;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        position: relative;
+        -webkit-transition-property: color;
+        transition-property: color;
+        -webkit-transition-duration: 0.5s;
+        transition-duration: 0.5s; }
+    .button:before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(270deg,#f114ff -40%,#450fc7 127.05%),#ffffff;
+          -webkit-transform: scaleX(0);
+          transform: scaleX(0);
+          -webkit-transform-origin: 0 50%;
+          transform-origin: 0 50%;
+          -webkit-transition-property: transform;
+          transition-property: transform;
+          -webkit-transition-duration: 0.5s;
+          transition-duration: 0.5s;
+          -webkit-transition-timing-function: ease-out;
+          transition-timing-function: ease-out; }
+    .button:hover:before {
+          -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+          -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+          transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66); }
+    #video_list{
+        overflow-y: scroll;
+    }
+    .item:hover{
+        background-color: blueviolet;
+        border-color: blueviolet;
+    }
+</style>
+{% endblock css %}
+{% block body %}
+<div class="container mt-4">
+    {% comment %} Iframe and Title row {% endcomment %}
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-8 bg-white p-4" style="border-radius: 10px;">
+            <iframe id="player" width="100%" height="315" src="https://www.youtube.com/embed/{{video.video_id}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <h4 class="mt-3 border-bottom border-2 text-dark">{{video.Title}}</h4>
+            <div class="fb-share-button" data-href="https://drhanzlaff.herokuapp.com/playlist/{{video.playlist.slug}}/?video={{video.serial_no}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdrhanzlaff.herokuapp.com%2Fplaylist%257B%257Bvideo.playlist.slug%257D%257D%2F%3Fvideo%3D%257B%257Bvideo.serial_no%257D%257D&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+        </div>
+        <div class="col-12 col-sm-12 my-2 my-md-0 col-md-4">
+            <ul class="list-group" id="video_list">
+                {% for i in videos %}
+                <a style="text-decoration: none; color:black;" href="?video={{i.serial_no}}">
+                    <small>
+                        <li class="list-group-item item {% if i == video %}active{% endif %} fs-5">
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="{{i.thumbnail_link}}" style="width : 100%; height:60px;" alt="Image">
+                            </div>
+                            <div class="col-8">{{i|truncatewords:4}}</div>
+                        </div>
+                        </li>
+                    </small>
+                </a>
+                {% endfor %}
+            </ul>
+        </div>    
+    </div>
+    {% comment %} Comment and description Row {% endcomment %}
+    <div class="row g-0 mt-1">
+        <div class="col-12 bg-white shadow-lg col-md-8 mb-4 p-2" style="border-radius: 10px;" id="video">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">OverView</button>
+                  <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Q&A</button>
+                </div>
+              </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="preview mt-4 ps-3 ms-2 mb-2 tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    {{video.content}}
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="commentSection">
+                        {% include 'home/comment.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
+{% block js %}
+{% comment %} Js For facebook button {% endcomment %}
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v12.0&appId=976590069731068&autoLogAppEvents=1" nonce="zx7cTzyH"></script>
+<script src="{% static 'js/playerRatio.js' %}"></script>
+<script src="{% static 'js/typed/comment.js' %}"></script>
+<script src="{% static 'js/typed/reply.js' %}"></script>
+<script>
+    $(document).on('submit', '.commentForm', function(event){
+      event.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function(response){
+            $('.commentSection').html(response.form);
+            $('.comment').val('');
+        },
+        error: function(rs, e){
+        console.log("failed");
+        },
+     });
+    });
+    $(document).on('submit', '.replyForm', function(event){
+      event.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function(response){
+            $('.commentSection').html(response.form);
+            $('.comment').val('');
+        },
+        error: function(rs, e){
+        console.log("failed");
+        },
+     });
+    });
+    var player;
+    var video_list;
+    document.onreadystatechange = function(){
+        if (document.readyState == 'interactive'){
+            player = document.getElementById('player')
+            video_list = document.getElementById('video_list')
+            maintainRatio()
+        }
+    }
+
+    function maintainRatio(){
+        var w = player.clientWidth
+        var h = (w * 9) / 16;
+        player.height = h;
+        video_list.style.maxHeight = (h+52) + "px"
+    }
+    window.onresize = maintainRatio
+  </script>
+{% endblock js %}

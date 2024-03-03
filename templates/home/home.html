@@ -1,0 +1,150 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block head %}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2033048774373966"
+     crossorigin="anonymous"></script>
+<meta name="description" content="Welcome to DR HANZLA FF OFFICIAL WEBSITE. Here You can see me playing freefire and can also get information on any topic.">
+{% endblock head%}
+{% block homeactive %}active1{% endblock homeactive %}
+{% block title %}Home{% endblock title %}
+{% block css %}
+<style>
+    #hero {
+        background-image: url({% for i in images %}{{i.hero_thumbnail_link}}{% endfor %})
+    }
+    .typed-cursor{
+        color: blueviolet;
+    }
+    .display-4 {
+        font-size: calc(1.475rem + 2.7vw);
+        /* font-weight: 300; */
+        line-height: 1.3;
+    }
+    .btn-go{
+        color: blueviolet;
+        border-color: blueviolet;
+    }
+    .btn-go:hover{
+        background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+        color: white;
+    }
+    body{
+        background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+    }
+    .button {
+        border: none;
+        width: 100px;
+        height: 40px;
+        margin: auto;
+        margin-top: 29px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+        font-size: 13px;
+        color: #fff;
+        text-transform: uppercase;
+        font-family: "Muli-SemiBold";
+        border-radius: 20px;
+        overflow: hidden;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        position: relative;
+        -webkit-transition-property: color;
+        transition-property: color;
+        -webkit-transition-duration: 0.5s;
+        transition-duration: 0.5s; }
+    .button:before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(270deg,#f114ff -40%,#450fc7 127.05%),#ffffff;
+          -webkit-transform: scaleX(0);
+          transform: scaleX(0);
+          -webkit-transform-origin: 0 50%;
+          transform-origin: 0 50%;
+          -webkit-transition-property: transform;
+          transition-property: transform;
+          -webkit-transition-duration: 0.5s;
+          transition-duration: 0.5s;
+          -webkit-transition-timing-function: ease-out;
+          transition-timing-function: ease-out; }
+    .button:hover:before {
+          -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+          -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+          transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66); }
+</style>
+{% endblock css %}
+{% block body %}
+<div class="container-fluid hero mt-4" id="hero">
+    <div class="row g-0">
+        <div class="col me-xl-4 col-md-4 col-lg-4"></div>
+        <div class="col ms-xl-2 text-center">
+            <img class="rounded-circle" style="width: 150px; height: 150px; margin-top:2rem; background: radial-gradient(black, transparent);" src="{% static 'images/logo.png' %}" alt="">
+        </div>
+        <div class="col"></div>
+    </div> 
+    <div class="row mt-3 g-0">
+        <div class="col-md-2 col-sm-1 col-xs-2"></div>
+        <div class="col-12 col-md-8 col-sm-12 col-xs-8">
+            <h1 class="display-4 fw-bold text-white text-center">
+                <span id="typed" style="background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4; color: white;"></span>
+            </h1>
+        </div>
+        <div class="col-sm-2 col-xs-2"></div>
+    </div>
+    <div class="row g-0">
+        <div class="col-sm-1 col-xs-1"></div>
+        <div class="col-12 col-sm-12 col-md-10 col-xs-2 text-center">
+            <p class="lead text-white shadow-lg" style="background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;">Hi, This is Hanzla Anjum. I am a professional player of freefire. This is the official website of DR HANZLA FF. Here I shares the best gaming videos with you to help you in making your gaming better. You will also get tips and trick or information on any topic in freefire. Read My blogs to know about any topic on freefire. </p>
+        </div>
+        <div class="col-sm-1 col-xs-1"></div>
+    </div>
+    <div class="row row-cols g-0">
+        <div class="col-sm-4 d-none d-sm-block"></div>
+        <div class="col col-sm-2 text-center">
+            <a class="btn button btn-lg mb-md-3 me-sm-1" href="/playlist" role="button">Playlists &raquo</a>
+        </div>
+        <div class="col col-sm-2 col-xxl-1">
+            <a class="btn button btn-lg mb-md-3" href="/blog/?page=1" role="button">Blogs &raquo</a>
+        </div>
+        <div class="col-sm-4 d-none d-sm-block"></div>
+    </div>
+</div>
+
+{% comment %} Card group starts here {% endcomment %}
+<div class="card-group">
+    <div class="col-md-1 col-lg-2 col-xl-3 col-xxl-4"></div>
+    <div class="m-2 card shadow-lg text-white  p-0" style="border-radius: 10px; border: none;">
+        <img src="{% for i in images %}{{i.game_card_thumbnail_link}}{% endfor %}" style="border-top-left-radius: 10px; border-top-right-radius: 10px; height:165px;" class="card-img-top" alt="...">
+        <div class="card-body" style="color: blueviolet;">
+          <h5 class="card-title">Gaming Videos</h5>
+          <p class="card-text">Hi,Guyz this is <strong>DR HANZLA FF</strong>. Watch my best gaming content to enhance your gaming experience.You wil also get the in-game information.</p>
+          <a href="/playlist" class="btn button">Start Watching</a>
+        </div>
+    </div>
+    
+    <div class="m-2 card shadow-lg text-warning p-0" style="border: none; border-radius: 10px;">
+        <img src="{% for i in images %}{{i.blog_card_thumbnail_link}}{% endfor %}" style="height:165px; border-top-left-radius: 10px; border-top-right-radius: 10px;" class="card-img-top" alt="...">
+        <div class="card-body" style="color: blueviolet;">
+            <h5 class="card-title">Gaming Articles</h5>
+            <p class="card-text">Read my blog to improve your vision and gaming experience. I am sure it will help you a lot. For any information <a href="/contact" style="text-decoration: underline; color: blueviolet;"><strong>Contact me</strong>.</a></p>
+            <a href="/blog/?page=1" class="btn button">Read Blogs</a>
+        </div>
+    </div>
+    <div class="col-md-1 col-lg-2 col-xl-3 col-xxl-4"></div>
+  </div>
+    <div class="col col-md-1 col-xl-2"></div>
+</div>
+{% endblock body %}
+{% block js %}
+<script src="{% static 'js/typed/Customtyped.js' %}"></script>
+{% endblock js %}

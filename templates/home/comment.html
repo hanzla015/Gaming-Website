@@ -1,0 +1,146 @@
+{% load static %}
+{% load humanize %}
+{% load extras %}
+<h2 class="mt-2 ms-2 mb-3">Comments<span class="text-muted">({{comments.count}})</span></h1>
+    <div class="row g-0">
+        <div class="col-1"></div>
+        <div class="col-11">
+            {% if not user.is_authenticated %}
+                    <div class="row g-0 ms-4 mb-1 border">
+                       <p class="ms-4 mt-3">Please <a href="/login" class="fw-bold" style="text-decoration: none;">Login</a> to post comments.</p>
+                    </div>
+            {% endif %}
+            {% if comments.count == 0 %}
+            <div>
+                <p class="text-dark ms-4 mt-1">Be the first to comment</p>
+            </div>
+            {% else %}
+            {% comment %} comment body {% endcomment %}
+            {% for i in comments %}
+            <div class="comment mb-2 p-2 border bg-dark text-white" style="border-radius: 10px">
+                <div class="header" style="border-bottom: 2px solid #605f5f!important;">
+                    <div class="row g-0 mt-3 mb-1">
+                        <div class="col-1">
+                            <img class="bg-dark comment-image me-2"
+                                style="width: 35px; border: 1px solid black; border-radius: 104px; height: 35px; margin-left: 10px; margin-top: 5px;"
+                                src="{% static 'images/user1.jpg' %}" alt="">
+                        </div>
+                        <div class="col-10 ms-md-2 ms-3">
+                            <h6 class="fw-bold mt-3 ms-2 fs-5">{{i.user.userdetail.first_name}}
+                                {{i.user.userdetail.last_name}}<span><small
+                                        class="ms-1 text-muted fw-bold">says</small></span></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="comment mt-3 ms-4 mb-3">
+                    <small class="fw-bold">{{i.comment}}</small>
+                </div>
+                {% comment %} comment body end here {% endcomment %}
+                {% comment %} # Reply Collapse Start here {% endcomment %}
+                <div class="row g-0 mb-1">
+                    <div class="col-12 col-sm-6 col-md-6"><small class="text-muted fw-bold">{{i.time_stamp|naturaltime}}</small></div>
+                    <div class="col-12 col-sm-6 col-md-6 text-end">
+                        <small class="fw-bold"><a class="text-muted cps" data-bs-toggle="collapse"
+                                href="#replyBox{{i.serial_no}}" role="button" aria-expanded="false"
+                                aria-controls="collapseExample" style="text-decoration: none; color: black;">View
+                                Replies</a>
+                        </small>
+                    </div>
+                </div>
+                <div class="row g-0">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-11 mb-3">
+                        <div class="collapse replySection" id="replyBox{{i.serial_no}}">
+                            {% for i in replies|get_val:i.serial_no %}
+                            <div class="row g-0">
+                                <div class="col-1"></div>
+                                <div class="col-11">
+                                    <div class="card mb-2 bg-secondary card-body">
+                                        <div class="row g-0 mb-2 border-bottom border-2">
+                                            <div class="col-1 col-md-1">
+                                                <img class="bg-dark comment-image me-2"
+                                                    style="width: 35px; border: 1px solid black; border-radius: 104px; height: 35px; margin-left: 10px; margin-top: 5px;"
+                                                    src="{% static 'images/user1.jpg' %}" alt="">
+                                            </div>
+                                            <div class="col-9 text-wrap col-md-11">
+                                                <h6 class="fw-bold mt-2 ms-3 fs-5">{{i.user.first_name}}
+                                                    {{i.user.last_name}}<span><small
+                                                            class="ms-1 text-white fw-bold">replies</small></span></h6>
+                                            </div>
+                                            <div class="mt-2 col-5"><small class="fw-bold text-light">{{i.time_stamp|naturaltime}}</small></div>
+                                        </div>
+                                        <div class="row g-0">
+                                            <div class="col-1"></div>
+                                            <div class="col-11 mt-2">
+                                                <small class="fw-bold">{{i.comment}}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% comment %} reply form start here {% endcomment %}
+                            <div class="row  g-0 mt-4">
+                                <div class="col-2"></div>
+                                <div class="col-10"  style="border-top: 2px solid lightgrey;">
+                                    <form action="." class="replyForm" method="post">{% csrf_token %}
+                                        <div class="col-12 mt-3">
+                                            <div class="input-box" style="border-bottom: 1px solid #000000;">
+                                                <textarea type="text" class="comment" name="comment" id="reply"
+                                                    style="width: 100%; color:black; border-radius: 10px; border: none; outline: none; background: white;"
+                                                    placeholder="Type Your Reply" rows="5"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row g-0">
+    
+                                            <div class="col-6 col-sm-8 col-md-7 col-lg-8"></div>
+                                            <div class="col-5 col-sm-3 ms-sm-4 text-end col-md-4 col-lg-3">
+                                                <input type="hidden" name="videoSno" value="{{video.serial_no}}">
+                                                <input type="hidden" name="parent_Sno" value="{{i.serial_no}}">
+                                                {% if user.is_authenticated %}
+                                                <button class="btn button">Reply</button>
+                                                {% else %}
+                                                <a href="/login" class='btn button'>Reply</a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-9 col-md-8"></div>
+                                <div class="col-12 text-end col-md-4">
+                                    <small class="fw-bold">
+                                        <a class="text-muted" data-bs-toggle="collapse" href="#replyBox{{i.serial_no}}" role="button" aria-expanded="false" aria-controls="collapseExample" style="text-decoration: none; color: black;">Hide Replies</a>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        {% comment %} comment input starts here {% endcomment %}
+        <div class="row g-0 mt-4">
+            <div class="col-1"></div>
+            <div class="col-10 mt-4">
+                <form action="." class="commentForm" method="post">{% csrf_token %}
+                    <div class="input-box" style="">
+                        <textarea type="text" class="comment bg-dark" name="comment" id="comment" placeholder="Type your comment here."
+                            style="width: 100%; border: none; outline: none; border-radius: 10px; color: white;" rows="5"></textarea>
+                    </div>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-7 col-sm-8 col-md-8"></div>
+            <div class="col-4 text-end col-sm-3 ms-md-0 ms-sm-4 col-md-3 mt-1">
+                <input type="hidden" name="videoSno" value="{{video.serial_no}}">
+                <input type="hidden" name="parent_Sno" value="">
+                {% if user.is_authenticated %}
+                <button type="submit" class="btn button">Comment</button>
+                {% else %}
+                <a href="/login" class="btn button">Comment</a>
+                {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>

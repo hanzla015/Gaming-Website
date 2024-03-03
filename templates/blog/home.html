@@ -1,0 +1,157 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% load humanize %}
+{% block head %}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2033048774373966"
+     crossorigin="anonymous"></script>
+<meta name="description" content="Read DR HANZLA FF Personal experience about freefire to get the ideas about freefire. Also, you will get tips and tricks.">
+{% endblock head %}
+{% block blogactive %}active1{% endblock blogactive %}
+{% block title %}Blog{% endblock title %} 
+{% block css %}
+<style>
+  .title:hover{
+    color: blueviolet;
+  }
+  .link:hover{
+    color: greenyellow;
+  }
+  body{
+    background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+  }
+  .page-li{
+    border-color : blueviolet;
+    background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+  }
+  .page-link:hover{
+    border: none;
+    background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+  }
+  .comment{
+    color: blueviolet;
+  }
+  .comment:hover{
+    color : greenyellow;
+  }
+  p{
+    margin-bottom: 0rem;
+  }
+</style>
+{% endblock css %} 
+{% block body %}
+<div class="container" id="blogs">
+  <div class="row row-col-sm-1 mt-4">
+    <div class="col col-md-8 mt-2 p-4">
+      {% for i in posts %}
+      <div class="row g-0 pe-3 mb-4 shadow-lg bg-light bg-body-rounded rounded overflow-hidden flex-md-row h-md-250 position-relative">
+        <div class="col ps-4 d-flex flex-column position-static bg-light">
+          <a href="/blog/{{i.slug}}" style="text-decoration: none; color: initial">
+            <h3 class="mt-3 mb-1 title me-4 text-uppercase">
+              {{i.title}}
+            </h3>
+          </a>
+          <small class="text-muted">
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock me-1" viewBox="0 0 16 16">
+                <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+              </svg>{{i.time_stamp|naturaltime}} /
+            </span>
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill me-1" viewBox="0 0 16 16">
+                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+              </svg>{{i.author}} /
+            </span>
+            <span>
+              <a class="fs-6 fw-bold comment" style="text-decoration: none;" href="/blog/{{i.slug}}/#comments"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
+                <path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z"/>
+              </svg> Comments</a>
+            </span>
+          </small>
+          <p class="preview mb-0">{{i.content|truncatewords:45}}</p>
+          <div class="mb-3">
+            <a href="/blog/{{i.slug}}" style="text-decoration: none; color: blueviolet;"><h1 class="link fs-1">Read More</h1></a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      <!-- Pagination -->
+      <nav aria-label="Page navigation example" class="mt-4">
+        <ul class="pagination justify-content-center">
+          {% comment %} for previous page {% endcomment %} 
+          {% if posts.has_previous %}
+          <li class="page-item" style="margin-left: 3px">
+            <a class="page-link rounded-circle" href="?page={{posts.previous_page_number}}">&laquo</a>
+          </li>
+          {% else %}
+          <li class="disabled page-item" style="margin-left: 3px">
+            <a class="page-link rounded-circle">&laquo</a>
+          </li>
+          {% endif %} {% comment %} for first page {% endcomment %} 
+          {% if posts.number == 1 %}
+          <li class="page-item" style="margin-left: 3px">
+            <a style="background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4; border-color: blueviolet; color: white;" class="page-link rounded-circle" href="?page=1">1</a>
+          </li>
+          {% else %}
+          <li class="page-item" style="margin-left: 3px">
+            <a class="page-link rounded-circle" href="?page=1">1</a>
+          </li>
+          {% endif %}
+          {% if posts.has_next %}
+          <li class="page-item disabled" style="margin-left: 3px">
+            <a class="page-link rounded-circle">...</a>
+          </li>
+          {% elif posts.has_previous %}
+          <li class="page-item disabled" style="margin-left: 3px">
+            <a class="page-link rounded-circle">...</a>
+          </li>
+          {% endif %} 
+          {% comment %} for active page if page is greater than 1 {% endcomment %} {% if posts.number > 1 %}
+          <li class="page-item" style="margin-left: 3px">
+            <a class="page-link page-li rounded-circle" style="border-color: blueviolet; color: white;" href="?page={{posts.number}}">{{posts.number}}</a>
+          </li>
+          {% endif %} {% comment %} Last page {% endcomment %}
+          {% if last > posts.number %}
+          <li class="page-item" style="margin-left: 3px">
+            <a class="page-link rounded-circle" href="?page={{last}}">{{last}}</a>
+          </li>
+          {% endif %} {% comment %} for nex page {% endcomment %} 
+          {% if posts.has_next %}
+          <li class="page-item" style="margin-left: 3px">
+            <a class="page-link rounded-circle" href="?page={{posts.next_page_number}}">&raquo</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled" style="margin-left: 3px">
+            <a class="page-link rounded-circle">&raquo</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+</div>
+{% endblock body %}
+{% block js %}
+{% comment %} <script>
+  var x;
+  x = document.getElementById('blogs');
+  var h = x.clientHeight;
+  var h2 = h/250;
+  var h3 = Math.round(h2);
+  var i = 1;
+  for (i; i<=h3; i++){
+   var ad = document.getElementById('Ads');
+   ad.innerHTML+=(
+     `<script type="text/javascript">
+                atOptions = {
+                    'key' : '41ebd011afafd04ff3d23848ebdde795',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+                document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://rubberbeak.com/41ebd011afafd04ff3d23848ebdde795/invoke.js"></scr' + 'ipt>');
+            <\/script>`
+            );
+  }
+</script> {% endcomment %}
+{% endblock js %}
